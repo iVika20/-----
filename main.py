@@ -1,4 +1,5 @@
 from pygame import *
+import math
 
 window = display.set_mode((800, 500))
 pic = image.load('free-icon-tennis-ball-5140646.png')
@@ -19,9 +20,11 @@ class GameSprite(sprite.Sprite):
         self.speed = speed
         self.pos_x = x
         self.pos_y = y
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (x, y)
 
     def reset(self):
-        window.blit(self.image, (self.pos_x, self.pos_y))
+        window.blit(self.image, self.rect.topleft)
     
 
 class Player(GameSprite):
@@ -31,6 +34,7 @@ class Player(GameSprite):
             self.pos_y -= self.speed
         if keys[K_DOWN] and self.pos_y < 300:
             self.pos_y += self.speed
+        self.rect.topleft = (self.pos_x, self.pos_y)
     
     def control_move_l(self):
         keys = key.get_pressed()
@@ -38,15 +42,21 @@ class Player(GameSprite):
             self.pos_y -= self.speed
         if keys[K_s] and self.pos_y < 300:
             self.pos_y += self.speed
-        
+        self.rect.topleft = (self.pos_x, self.pos_y)
 
 class Ball(GameSprite):
     def move(self):
-        None
+        side_y = window.get_height - self.pos_y
+        side_x = window.get_width - self.pos_x
+        distance = math.hypot(side_x, side_y)
+        if distance != 0: 
+            self.rect.x = (self.rect.x - side_x / distance * self.speed)
+            self.rect.y = (self.rect.y - side_y / distance * self.speed)
 
 
 player1 = Player(image_player, 0.7, 50, 150)
 player2 = Player(image_player_l, 0.7, 650, 150)
+ball = Ball(image_ball, 0.7, 365, 215)
 
 
 game = True
@@ -56,10 +66,12 @@ while game:
             game = False
 
     window.blit(background, (0, 0))
-    window.blit(image_ball,  (365, 215))
+    #window.blit(image_ball,  (365, 215))
+    ball.reset()
     player1.reset()
     player2.reset()
 
+    ball.move()
     player1.control_move()
     player2.control_move_l()
 
