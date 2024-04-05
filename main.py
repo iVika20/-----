@@ -3,11 +3,12 @@ from pygame import *
 window = display.set_mode((800, 500))
 pic = image.load('free-icon-tennis-ball-5140646.png')
 display.set_icon(pic)
+display.set_caption('ping-pong')
 
 background = transform.scale(image.load('tennis_court_background.jpg'), (800,500))
 image_player = transform.scale(image.load('free-icon-flying-saucer-11617509.png'), (200, 100))
 image_player = transform.rotate(image_player, 90)
-image_player_l = transform.rotate(image_player, 270)
+image_player_l = transform.rotate(image_player, 180)
 image_ball = transform.scale(image.load('free-icon-tennis-ball-5140646.png'), (70, 70))
 
 
@@ -26,9 +27,9 @@ class GameSprite(sprite.Sprite):
 class Player(GameSprite):
     def control_move(self):
         keys = key.get_pressed()
-        if keys[K_UP] and self.pos_y > -10: 
+        if keys[K_UP] and self.pos_y > 0: 
             self.pos_y -= self.speed
-        if keys[K_DOWN] and self.pos_y < 310:
+        if keys[K_DOWN] and self.pos_y < 300:
             self.pos_y += self.speed
     
     def control_move_l(self):
@@ -45,7 +46,7 @@ class Ball(GameSprite):
 
 
 player1 = Player(image_player, 0.7, 50, 150)
-player2 = Player(image_player_l, 0.7, 50, 650)
+player2 = Player(image_player_l, 0.7, 650, 150)
 
 
 game = True
