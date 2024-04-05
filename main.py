@@ -5,7 +5,9 @@ pic = image.load('free-icon-tennis-ball-5140646.png')
 display.set_icon(pic)
 
 background = transform.scale(image.load('tennis_court_background.jpg'), (800,500))
-image_player = transform.scale(image.load('free-icon-flying-saucer-11617509.png'), (100, 200))
+image_player = transform.scale(image.load('free-icon-flying-saucer-11617509.png'), (200, 100))
+image_player = transform.rotate(image_player, 90)
+image_player_l = transform.rotate(image_player, 270)
 image_ball = transform.scale(image.load('free-icon-tennis-ball-5140646.png'), (70, 70))
 
 
@@ -22,19 +24,28 @@ class GameSprite(sprite.Sprite):
     
 
 class Player(GameSprite):
-    def move(self):
+    def control_move(self):
         keys = key.get_pressed()
         if keys[K_UP] and self.pos_y > -10: 
             self.pos_y -= self.speed
         if keys[K_DOWN] and self.pos_y < 310:
             self.pos_y += self.speed
+    
+    def control_move_l(self):
+        keys = key.get_pressed()
+        if keys[K_w] and self.pos_y > 0: 
+            self.pos_y -= self.speed
+        if keys[K_s] and self.pos_y < 300:
+            self.pos_y += self.speed
         
 
 class Ball(GameSprite):
-    None
+    def move(self):
+        None
 
 
-player1 = Player(image_player, 0.7, 70, 150)
+player1 = Player(image_player, 0.7, 50, 150)
+player2 = Player(image_player_l, 0.7, 50, 650)
 
 
 game = True
@@ -46,8 +57,10 @@ while game:
     window.blit(background, (0, 0))
     window.blit(image_ball,  (365, 215))
     player1.reset()
+    player2.reset()
 
-    player1.move()
+    player1.control_move()
+    player2.control_move_l()
 
 
     display.update()
