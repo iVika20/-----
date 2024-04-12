@@ -46,7 +46,14 @@ class Player(GameSprite):
 
 class Ball(GameSprite):
     def move(self):
-        None
+        speed_x = 1
+        speed_y = 1
+        self.rect.x += speed_x
+        self.rect.y += speed_y
+        if self.rect.y < 0 or self.rect.y > 430:
+            self.rect.y *= -1
+        
+
 
 player1 = Player(image_player, 0.7, 50, 150)
 player2 = Player(image_player_l, 0.7, 650, 150)
