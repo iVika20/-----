@@ -46,13 +46,7 @@ class Player(GameSprite):
 
 class Ball(GameSprite):
     def move(self):
-        side_y = window.get_height - self.pos_y
-        side_x = window.get_width - self.pos_x
-        distance = math.hypot(side_x, side_y)
-        if distance != 0: 
-            self.rect.x = (self.rect.x - side_x / distance * self.speed)
-            self.rect.y = (self.rect.y - side_y / distance * self.speed)
-
+        None
 
 player1 = Player(image_player, 0.7, 50, 150)
 player2 = Player(image_player_l, 0.7, 650, 150)
@@ -66,7 +60,6 @@ while game:
             game = False
 
     window.blit(background, (0, 0))
-    #window.blit(image_ball,  (365, 215))
     ball.reset()
     player1.reset()
     player2.reset()
