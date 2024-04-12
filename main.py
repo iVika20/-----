@@ -1,12 +1,13 @@
 from pygame import *
 import math
-import font
+font.init()
 
 window = display.set_mode((800, 500))
 pic = image.load('free-icon-tennis-ball-5140646.png')
 display.set_icon(pic)
 display.set_caption('ping-pong')
 
+mode = 0
 background = transform.scale(image.load('tennis_court_background.jpg'), (800,500))
 image_player = transform.scale(image.load('free-icon-flying-saucer-11617509.png'), (200, 100))
 image_player = transform.rotate(image_player, 90)
@@ -49,17 +50,25 @@ class Ball(GameSprite):
     speed_x = 1
     speed_y = 1
     def move(self):
+        global mode
         self.rect.x += self.speed_x
         self.rect.y += self.speed_y
         if self.rect.y < 0 or self.rect.y > 430:
             self.speed_y *= -1
         if sprite.collide_rect(player1, self) or sprite.collide_rect(player2, self):
             self.speed_x *= -1
+        if self.rect.x > 800:
+            mode = 1
+        if self.rect.x < 0:
+            mode = 2
+
         
-label1 = font.Font(None, 15)
+label1 = font.Font(None, 20)
 label2 = font.Font(None, 50)
-n1 = label1.render('ИГРОК №1', True, (255, 255, 255))
-n2 = label1.render('ИГРОК №2', True, (255, 255, 255))
+n1 = label1.render('ИГРОК 1', True, (255, 255, 255))
+n2 = label1.render('ИГРОК 2', True, (255, 255, 255))
+lab1 = label2.render('Победил ИГРОК 1', True, (0, 255, 0))
+lab2 = label2.render('Победил ИГРОК 2', True, (0, 255, 0))
 
 player1 = Player(image_player, 0.7, 50, 150)
 player2 = Player(image_player_l, 0.7, 650, 150)
@@ -72,16 +81,20 @@ while game:
         if e.type == QUIT:
             game = False
 
-    window.blit(background, (0, 0))
-    ball.reset()
-    player1.reset()
-    player2.reset()
-    window.blit(n1, (10, 5))
-    window.blit(n2, (700, 5))
+    if mode == 0:
+        window.blit(background, (0, 0))
+        ball.reset()
+        player1.reset()
+        player2.reset()
+        window.blit(n1, (10, 5))
+        window.blit(n2, (700, 5))
 
-    ball.move()
-    player1.control_move()
-    player2.control_move_l()
-
+        ball.move()
+        player1.control_move()
+        player2.control_move_l()
+    if mode == 1:
+        window.blit(lab1, (50, 50))
+    if mode == 2:
+        window.blit(lab2, (50, 50))
 
     display.update()
