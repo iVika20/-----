@@ -12,7 +12,7 @@ background = transform.scale(image.load('tennis_court_background.jpg'), (800,500
 image_player = transform.scale(image.load('free-icon-flying-saucer-11617509.png'), (200, 100))
 image_player = transform.rotate(image_player, 90)
 image_player_l = transform.rotate(image_player, 180)
-image_ball = transform.scale(image.load('free-icon-tennis-ball-5140646.png'), (70, 70))
+image_ball = transform.scale(image.load('free-icon-tennis-ball-5140646.png'), (50, 50))
 
 
 class GameSprite(sprite.Sprite):
@@ -63,20 +63,20 @@ class Ball(GameSprite):
             mode = 2
 
         
-label1 = font.Font(None, 20)
+
 label2 = font.Font(None, 50)
 label3 = font.Font(None, 30)
-n1 = label1.render('ИГРОК 1', True, (255, 255, 255))
-n2 = label1.render('ИГРОК 2', True, (255, 255, 255))
-lab1 = label2.render('Победил ИГРОК 1', True, (240, 30, 200))
-lab2 = label2.render('Победил ИГРОК 2', True, (240, 30, 200))
-lab3 = label3.render('Управление ИГРОКОМ 1:', True, (255, 255, 255))
+n1 = label3.render('ИГРОК 1', True, (242, 162, 83))
+n2 = label3.render('ИГРОК 2', True, (243, 160, 213))
+lab1 = label2.render('Победил ИГРОК 1', True, (242, 162, 83))
+lab2 = label2.render('Победил ИГРОК 2', True, (243, 160, 213))
+lab3 = label3.render('Управление ИГРОКОМ 1:', True, (242, 162, 83))
 lab4 = label3.render('для перемещения вверх нажмите клавишу "W"', True, (255, 255, 255))
 lab5 = label3.render('для перемещения вниз нажмите клавижу "S"', True, (255, 255, 255))
-lab6 = label3.render('Управление ИГРОКОМ 2:', True, (255, 255, 255))
+lab6 = label3.render('Управление ИГРОКОМ 2:', True, (243, 160, 213))
 lab7 = label3.render('для перемещения вверх нажмите стрелку вверх', True, (255, 255, 255))
 lab8 = label3.render('для перемещения вниз нажмите стрелку вниз', True, (255, 255, 255))
-lab9 = label3.render('Чтобы НАЧАТЬ ИГРУ нажмите "O"', True, (255, 255, 255))
+lab9 = label3.render('Чтобы НАЧАТЬ ИГРУ нажмите "O"', True, (16, 150, 99))
 
 
 player1 = Player(image_player, 0.7, 50, 150)
@@ -106,8 +106,8 @@ while game:
         ball.reset()
         player1.reset()
         player2.reset()
-        window.blit(n1, (10, 5))
-        window.blit(n2, (700, 5))
+        window.blit(n1, (10, 10))
+        window.blit(n2, (690, 10))
         
         ball.move()
         player1.control_move_l()
