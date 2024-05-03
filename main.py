@@ -67,8 +67,8 @@ label1 = font.Font(None, 20)
 label2 = font.Font(None, 50)
 n1 = label1.render('ИГРОК 1', True, (255, 255, 255))
 n2 = label1.render('ИГРОК 2', True, (255, 255, 255))
-lab1 = label2.render('Победил ИГРОК 1', True, (0, 255, 0))
-lab2 = label2.render('Победил ИГРОК 2', True, (0, 255, 0))
+lab1 = label2.render('Победил ИГРОК 1', True, (240, 30, 200))
+lab2 = label2.render('Победил ИГРОК 2', True, (240, 30, 200))
 
 player1 = Player(image_player, 0.7, 50, 150)
 player2 = Player(image_player_l, 0.7, 650, 150)
@@ -90,11 +90,11 @@ while game:
         window.blit(n2, (700, 5))
 
         ball.move()
-        player1.control_move()
-        player2.control_move_l()
+        player1.control_move_l()
+        player2.control_move()
     if mode == 1:
-        window.blit(lab1, (50, 50))
+        window.blit(lab1, (250, 200))
     if mode == 2:
-        window.blit(lab2, (50, 50))
+        window.blit(lab2, (250, 200))
 
     display.update()
